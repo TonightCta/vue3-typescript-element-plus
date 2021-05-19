@@ -3,10 +3,10 @@
     <div class="froms-container">
       <div class="signin-signup">
         <div class="signup-content content">
-          <p><span>手机号/用户名:</span><input type="text" name="" placeholder="请输入手机号或用户名" value="" /></p>
-          <p><span>密码:</span><input type="password" name="" placeholder="请输入密码" value="" /></p>
+          <p><span>手机号/用户名:</span><input type="text" name="" v-model="loginMes.number" placeholder="请输入手机号或用户名" /></p>
+          <p><span>密码:</span><input type="password" v-model="loginMes.pass" name="" placeholder="请输入密码" /></p>
           <p class="btn-oper">
-            <button type="button" name="button">立即登录</button>
+            <button type="button" name="button" @click="loginIn">立即登录</button>
           </p>
         </div>
         <div class="signin-content content">
@@ -39,11 +39,32 @@
 </template>
 
 <script lang="ts">
-import {Options} from 'vue-class-component'
 import {ref} from 'vue'
-import { Vue,Emit,Inject,Model,Prop,Provide,Watch } from 'vue-property-decorator'
+import { Vue,Watch } from 'vue-property-decorator'
+import {ElMessage} from 'element-plus'
 export default class LoginRegister extends Vue {
   private reType = ref<boolean>(false)
+  private loginMes = {
+    number:'',
+    pass:''
+  }
+  public loginIn = () : void => {
+    if(this.loginMes.number == ''){
+      ElMessage.error('请输入账号')
+    }else if(this.loginMes.pass == ''){
+      ElMessage.error('请输入密码')
+    }else{
+      console.log(11)
+    }
+  }
+  //监听登录/注册切换
+  @Watch('reType')
+  private isRegister(val:boolean,oldVal:boolean) : void {
+    this.loginMes = {
+      number:'',
+      pass:''
+    }
+  }
 }
 </script>
 

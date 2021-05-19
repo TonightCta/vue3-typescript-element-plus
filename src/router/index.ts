@@ -6,6 +6,16 @@ const routes: Array<RouteRecordRaw> = [
     name: 'LoginRegister',
     component: () => import('../views/loginRegister.vue')
   },
+  {
+    path:'/index',
+    name:'Index',
+    component:() => import('../views/index.vue'),
+    children:[
+      path:'/children',
+      name:'ChildRen',
+      component:() => import('../views/children.vue')
+    ]
+  }
 ]
 
 const router = createRouter({
